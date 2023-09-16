@@ -756,21 +756,26 @@ class PitchExtractor:
                     )
                 )
 
-        pitch_stats = {}
+        # pitch_stats = {}
 
         print(f"Pitch calculated for {len(np.unique(speakers_vecs))} speakers.")
 
-        for speaker in np.unique(speakers_vecs):
+        # for speaker in np.unique(speakers_vecs):
 
-            print(f"Calculatin {speaker} pitch stats...")
-            pitch_vecs_filtered = np.array(pitch_vecs)[np.array(speakers_vecs) == speaker]
+        #     print(f"Calculatin {speaker} pitch stats...")
+        #     pitch_vecs_filtered = np.array(pitch_vecs)[np.array(speakers_vecs) == speaker]
 
-            pitch_mean, pitch_std = self.compute_pitch_stats(pitch_vecs_filtered)
+        #     pitch_mean, pitch_std = self.compute_pitch_stats(pitch_vecs_filtered)
 
-            print(f"{speaker} pitch mean = {pitch_mean} std = {pitch_std}")
+        #     print(f"{speaker} pitch mean = {pitch_mean} std = {pitch_std}")
 
-            pitch_stats[speaker] = {"mean": pitch_mean, 
-                        "std": pitch_std}
+        #     pitch_stats[speaker] = {"mean": pitch_mean, 
+        #                 "std": pitch_std}
+
+        print("Calculating global stats")
+
+        pitch_mean, pitch_std = self.compute_pitch_stats(pitch_vecs)
+        pitch_stats = {"mean": pitch_mean, "std": pitch_std}
 
         np.save(os.path.join(cache_path, "pitch_stats"), pitch_stats, allow_pickle=True)
 
@@ -936,21 +941,25 @@ class EnergyExtractor:
                     )
                 )
 
-        energy_stats = {}
+        # energy_stats = {}
 
-        print(f"Energy calculated for {len(np.unique(speakers_vecs))} speakers.")
+        # print(f"Energy calculated for {len(np.unique(speakers_vecs))} speakers.")
 
-        for speaker in np.unique(speakers_vecs):
+        # for speaker in np.unique(speakers_vecs):
 
-            print(f"Calculatin {speaker} energy stats...")
-            energy_vecs_filtered = np.array(energy_vecs)[np.array(speakers_vecs) == speaker]
+        #     print(f"Calculatin {speaker} energy stats...")
+        #     energy_vecs_filtered = np.array(energy_vecs)[np.array(speakers_vecs) == speaker]
 
-            energy_mean, energy_std = self.compute_energy_stats(energy_vecs_filtered)
+        #     energy_mean, energy_std = self.compute_energy_stats(energy_vecs_filtered)
 
-            print(f"{speaker} energy mean = {energy_mean} std = {energy_std}")
+        #     print(f"{speaker} energy mean = {energy_mean} std = {energy_std}")
 
-            energy_stats[speaker] = {"mean": energy_mean, 
-                        "std": energy_std}
+        #     energy_stats[speaker] = {"mean": energy_mean, 
+        #                 "std": energy_std}
+        print("Calculating global stats")
+
+        energy_mean, energy_std = self.compute_energy_stats(energy_vecs)
+        energy_stats = {"mean": energy_mean, "std": energy_std}
 
         np.save(os.path.join(cache_path, "energy_stats"), energy_stats, allow_pickle=True)
 
