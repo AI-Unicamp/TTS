@@ -283,12 +283,12 @@ class TTSDataset(Dataset):
         pitch = None
         if self.compute_f0:
             pitch = self.pitch_extractor.load_or_compute_pitch(self.ap, wav_file, self.f0_cache_path, self.ds_name)
-            #pitch = self.pitch_extractor.normalize_pitch(pitch.astype(np.float32), speaker_name)
+            pitch = self.pitch_extractor.normalize_pitch(pitch.astype(np.float32), speaker_name)
 
         energy = None
         if self.compute_energy:
             energy = self.energy_extractor.load_or_compute_energy(self.ap, wav_file, self.energy_cache_path, self.ds_name)
-            #energy = self.energy_extractor.normalize_energy(energy.astype(np.float32), speaker_name)
+            energy = self.energy_extractor.normalize_energy(energy.astype(np.float32), speaker_name)
 
         sample = {
             "raw_text": raw_text,
