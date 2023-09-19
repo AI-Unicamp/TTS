@@ -1337,16 +1337,17 @@ class StyleforwardTTS(BaseTTS):
         from TTS.tts.layers.losses import StyleForwardTTSLoss  # pylint: disable=import-outside-toplevel
         return StyleForwardTTSLoss(self.config)
 
+
     def on_train_step_start(self, trainer):
         """Enable binary alignment loss when needed"""
-        if trainer.total_steps_done > self.config.binary_align_loss_start_step:
+        if trainer.epochs_done > self.config.binary_align_loss_start_epoch:
             self.use_binary_alignment_loss = True
 
             # Total steps to reach max alpha, where it has its min value at binary_align_loss_start_step
-            tot_steps_to_reach_max = self.config.binary_loss_warmup_steps + self.config.binary_align_loss_start_step
+            tot_epochs_to_reach_max = self.config.binary_loss_warmup_epochs + self.config.binary_align_loss_start_epoch
             
             # Max alpha binary loss
             max_alpha = self.config.binary_align_loss_alpha
 
             """Schedule binary loss weight."""
-            self.binary_loss_weight = min(max_alpha*trainer.total_steps_done / tot_steps_to_reach_max , max_alpha) * 1.0
+            self.binary_loss_weight = min(max_alpha*trainer.epochs_done  / tot_epochs_to_reach_max , max_alpha) * 1.0
