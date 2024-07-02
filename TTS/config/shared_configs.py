@@ -350,6 +350,8 @@ class BaseTrainingConfig(Coqpit):
     num_eval_loader_workers: int = 0
     use_noise_augment: bool = False
     use_language_weighted_sampler: bool = False
+    use_speaker_weighted_sampler: bool = False
+    use_style_weighted_sampler: bool = False
 
     # paths
     output_path: str = None
