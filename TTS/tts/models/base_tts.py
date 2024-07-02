@@ -399,6 +399,9 @@ class BaseTTS(BaseModel):
                 elif getattr(config, "use_speaker_weighted_sampler", False):
                     print(" > Using Language weighted sampler")
                     sampler = get_speaker_weighted_sampler(dataset.items)
+                elif getattr(config, "use_style_weighted_sampler", False):
+                    print(" > Using Style weighted sampler")
+                    sampler = get_style_weighted_sampler(dataset.items)
 
             loader = DataLoader(
                 dataset,
